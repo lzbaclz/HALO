@@ -1,0 +1,6 @@
+# Ablation 4: demotion target (§2.7).
+variants:
+  - name: dram_only
+    overrides: { tiers: [gpu, dram] }
+  - name: dram_nvme
+    overrides: { tiers: [gpu, dram, nvme] }

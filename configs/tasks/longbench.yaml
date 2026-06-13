@@ -1,0 +1,32 @@
+suite: longbench-v1
+description: |
+  10 representative LongBench v1 subtasks per §2.3 of EMNLP2026_PivotPlan.md
+  (✅ = required, ⭕ = optional / appendix).
+tasks:
+  - narrativeqa          # Single-doc QA, F1
+  - qasper               # Single-doc QA, F1
+  - multifieldqa_en      # Single-doc QA, F1
+  - hotpotqa             # Multi-doc QA, F1
+  - 2wikimqa             # Multi-doc QA, F1
+  - musique              # Multi-doc QA, F1
+  - gov_report           # Summarization, ROUGE-L
+  - trec                 # Few-shot, Acc
+  - triviaqa             # Few-shot, F1
+  - passage_retrieval_en # Synthetic, Acc
+  - repobench-p          # Code, Edit-sim
+optional_tasks:
+  - multi_news
+  - lcc
+  - passage_count
+metric_spec:
+  narrativeqa: f1
+  qasper: f1
+  multifieldqa_en: f1
+  hotpotqa: f1
+  2wikimqa: f1
+  musique: f1
+  gov_report: rouge-l
+  trec: accuracy
+  triviaqa: f1
+  passage_retrieval_en: accuracy
+  repobench-p: edit-similarity

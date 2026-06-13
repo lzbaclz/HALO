@@ -1,0 +1,12 @@
+name_or_path: meta-llama/Llama-3.1-8B-Instruct
+short_name: llama-3.1-8b-instruct
+context_window: 131072
+attn_implementation: sdpa
+dtype: bfloat16
+device_map: auto
+chat_template: llama3
+notes: |
+  Cross-family validation. Llama-3.1-8B-Instruct uses 32 transformer layers,
+  32 q-heads, 8 kv-heads (GQA 4:1), head_dim=128. Same KV layout as Qwen2.5-7B
+  modulo (n_layers=32 vs 28, RoPE base 500K vs 1M), so HALO's chunked path
+  applies unchanged. Verified by tests/test_chunked_wrap_integration.py.

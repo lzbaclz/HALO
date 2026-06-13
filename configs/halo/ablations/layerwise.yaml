@@ -1,0 +1,8 @@
+# Ablation 2: layerwise budget (§2.7).
+variants:
+  - name: uniform
+    overrides: { layerwise_budget: uniform }
+  - name: pyramid
+    overrides: { layerwise_budget: pyramid }
+  - name: learned
+    overrides: { layerwise_budget: learned }

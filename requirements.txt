@@ -1,0 +1,71 @@
+# =============================================================================
+# HALO — top-level dependencies (loose ranges, human-readable).
+#
+# This file is the friendly version: it installs HALO + its eval / RULER-prep
+# extras with version ranges that should work across recent Python versions.
+# For byte-for-byte reproduction of the numbers in the paper, use
+# requirements-cuda.txt (CUDA 12.1) or requirements-cpu.txt (CPU-only).
+#
+# Quick install:
+#
+#   # CUDA (any 12.x, single A100-class GPU):
+#   pip install torch --index-url https://download.pytorch.org/whl/cu121
+#   pip install -r requirements.txt
+#   pip install -e .
+#
+#   # CPU-only (paper / figures / unit tests):
+#   pip install torch --index-url https://download.pytorch.org/whl/cpu
+#   pip install -r requirements.txt
+#   pip install -e .
+# =============================================================================
+
+# --- ML core ---------------------------------------------------------------
+# torch is installed *first* from the appropriate wheel index above; the line
+# below is intentionally commented out so this file does not pull the CPU
+# build by accident from pypi.
+# torch>=2.5,<3
+transformers>=5.0,<6
+tokenizers>=0.20
+safetensors>=0.5
+huggingface_hub>=1.0
+accelerate>=1.0
+
+# --- Datasets / IO ---------------------------------------------------------
+datasets>=4.0
+pyarrow>=18
+pandas>=2.0
+
+# --- Numerics / plots ------------------------------------------------------
+numpy>=2.0
+scipy>=1.13
+scikit-learn>=1.5
+matplotlib>=3.8
+
+# --- LongBench fuzzy matching ---------------------------------------------
+fuzzywuzzy>=0.18
+python-Levenshtein>=0.25
+RapidFuzz>=3.0
+rouge>=1.0
+regex>=2024.0
+
+# --- KV-compression baselines (kvpress wraps H2O / SnapKV / StreamingLLM) --
+# kvpress 0.5.x advertises `fire<0.7` but works fine with fire 0.7.x at
+# runtime (and fire 0.6 has no py3.13 wheel). If pip refuses the resolve,
+# pre-install fire with `pip install --no-deps fire>=0.7`.
+kvpress>=0.5; sys_platform == "linux"
+
+# --- RULER synthetic data preparation -------------------------------------
+# Only needed if you want to regenerate experiments/ruler_data/ from
+# external/RULER/scripts/data/prepare.py. The repo ships pre-generated
+# jsonls, so these can be skipped for replay-only consumers.
+wonderwords>=2.2
+html2text>=2025.4
+nltk>=3.9
+tenacity>=9.0
+beautifulsoup4>=4.12
+
+# --- Tests + tooling -------------------------------------------------------
+pytest>=8.0
+PyYAML>=6.0
+tqdm>=4.66
+rich>=13.7

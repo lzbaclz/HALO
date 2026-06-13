@@ -1,0 +1,9 @@
+name_or_path: mistralai/Mistral-7B-v0.1
+short_name: mistral-7b
+context_window: 32768
+attn_implementation: sdpa
+dtype: bfloat16
+device_map: auto
+chat_template: mistral
+notes: |
+  Third-family validation. Restricted to RULER 8K/32K because of the native window.

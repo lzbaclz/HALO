@@ -1,0 +1,19 @@
+name_or_path: mistralai/Mistral-7B-Instruct-v0.2
+short_name: mistral-7b-instruct
+context_window: 32768
+attn_implementation: sdpa
+dtype: bfloat16
+device_map: auto
+chat_template: mistral
+notes: |
+  Mistral-7B-Instruct-v0.2 replaces the original T2.8 plan of
+  Llama-2-7b-chat-hf, which is gated on Hugging Face and was
+  inaccessible from our network at the time of the 2026-05-12
+  revision (HTTP 503 from the gated model endpoint). Llama-3.1-8B-
+  Instruct is also gated and was not available.
+
+  Mistral-7B-Instruct-v0.2 is an instruction-tuned 7B with 32K
+  native context, drawn from a *different* family than Qwen (the
+  primary backbone) and Llama (covered by §3's cross-family AUC).
+  This gives us a clean instruction-tuned cross-family confirmation
+  cell to replace the weak base-model Llama-2-7b-hf numbers.

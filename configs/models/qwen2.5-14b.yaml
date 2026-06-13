@@ -1,0 +1,15 @@
+name_or_path: /public/model_zoo/Qwen2.5-14B-Instruct
+short_name: qwen2.5-14b
+context_window: 131072
+attn_implementation: sdpa
+dtype: bfloat16
+device_map: auto
+chat_template: chatml
+notes: |
+  Optional scale validation (\S2.2 of EMNLP2026_PivotPlan.md).
+
+  name_or_path points to the locally cached weights at /public/model_zoo;
+  swap to "Qwen/Qwen2.5-14B-Instruct" if running from HF Hub instead.
+  The HF id is stable enough across the 14B-Instruct lineage that local
+  vs remote resolves to the same checkpoint (sha256 verified once on
+  first download).

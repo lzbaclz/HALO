@@ -1,0 +1,6 @@
+suite: longbench-v1
+description: |
+  Single LongBench subtask: repobench-p (code completion, Edit Similarity).
+  Used for Cell H — Path D lossless verification on 4th task shape (code).
+tasks:
+  - repobench-p

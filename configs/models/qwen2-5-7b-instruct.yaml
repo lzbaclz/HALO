@@ -1,0 +1,10 @@
+name_or_path: /public/model_zoo/Qwen2.5-7B-Instruct
+short_name: qwen2-5-7b-instruct
+context_window: 32768
+attn_implementation: sdpa
+dtype: bfloat16
+device_map: auto
+chat_template: chatml
+notes: |
+  Instruct-tuned variant of Qwen 2.5-7B, used for Cell J' (LongBench-v2
+  with Instruct prompting to push past the base model's noise floor).

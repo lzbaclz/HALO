@@ -1,0 +1,10 @@
+name_or_path: meta-llama/Llama-3-70B-Instruct
+short_name: llama3-70b
+context_window: 131072
+attn_implementation: sdpa
+dtype: bfloat16
+device_map: auto
+chat_template: llama3
+notes: |
+  Optional scale validation (§2.2 of EMNLP2026_PivotPlan.md). Only run if GPU
+  budget allows — appendix material.

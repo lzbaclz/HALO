@@ -1,0 +1,31 @@
+name_or_path: Qwen/Qwen2.5-7B
+short_name: qwen2-5-7b
+context_window: 32768            # native max_position_embeddings; the paper's
+                                  # headline cells (A, B, C @ 65K InfiniteBench
+                                  # EnQA; RULER NIAH adv. @ 32K) extrapolate
+                                  # past this via RoPE without scaling. F1
+                                  # at 65K is correspondingly low (Full ~8
+                                  # F1 on EnQA), which is by design --
+                                  # absolute F1 is not the comparison axis.
+attn_implementation: sdpa         # eager only for trace collection
+dtype: bfloat16
+device_map: auto
+chat_template: chatml
+notes: |
+  Primary 7B checkpoint used throughout the paper. The original plan
+  called for meta-llama/Llama-3-8B-Instruct, but that repo is gated and
+  was unavailable on the experimental machine; Qwen2.5-7B was already
+  in the local HF cache and is a closely-comparable model on the same
+  benchmarks (similar parameter count, GQA, native 32K window). Earlier
+  versions of the project used the slug ``llama3-8b`` for run-folder
+  paths; the rename to ``qwen2-5-7b`` removes that source of confusion.
+
+  Context extrapolation: paper Cells A, B, C run at 65K which is past
+  the native 32768 max_position_embeddings; RoPE is unscaled. The
+  measured Full F1 at 65K (~8) is therefore not directly comparable
+  to in-budget runs on models with native >65K (e.g. Llama-3-8B-Inst.
+  with 262K reports Full F1 ~13 on the same EnQA cell; see
+  RetrievalAttention paper, Liu et al. 2024). The paper's
+  apples-to-apples comparison is Path D vs KIVI vs Full all on this
+  same out-of-budget regime; the absolute F1 is uninformative, the
+  Path-D-vs-Full CI95 overlap and the identity contract are the claim.

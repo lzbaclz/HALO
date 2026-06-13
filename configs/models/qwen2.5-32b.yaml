@@ -1,0 +1,19 @@
+name_or_path: /public/model_zoo/Qwen2.5-32B-Instruct
+short_name: qwen2.5-32b
+context_window: 131072
+attn_implementation: sdpa
+dtype: bfloat16
+device_map: auto
+chat_template: chatml
+notes: |
+  Cell E: 32B scale validation on single 80 GiB GPU. ~64 GB weights in
+  bf16 (Full) + ~17 GiB KV cache at 65K context saturates the device;
+  Full OOMs on the MLP intermediate (3.35 GiB allocation request,
+  cell_E/full/scale_32b.log), where the binding constraint is the
+  cumulative memory footprint (weights + KV cache + activation). Path D
+  removes the ~17 GiB KV portion from device, lifting cumulative
+  footprint below the 80 GiB budget; the same prompt completes
+  end-to-end. See paper/sections/sec5_native_hardware.tex.
+
+  name_or_path points to local cache /public/model_zoo; swap to
+  "Qwen/Qwen2.5-32B-Instruct" to resolve via HF Hub.

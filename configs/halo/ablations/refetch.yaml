@@ -1,0 +1,8 @@
+# Ablation 3: refetch timing (§2.7).
+variants:
+  - name: sync
+    overrides: { async_refetch: false, lookahead: 0 }
+  - name: async
+    overrides: { async_refetch: true, lookahead: 0 }
+  - name: lookahead
+    overrides: { async_refetch: true, lookahead: 1 }

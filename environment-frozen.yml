@@ -1,0 +1,41 @@
+# Frozen conda environment used to produce ALL numbers in the paper
+# (Cell A-E, FU_W1-W19, W6b/W7d/W7e/W12b/W13b, W1c e2e). Round-22 audit
+# fix: pyproject.toml previously pinned transformers>=5.0,<6 but the
+# actual artifact was built under transformers 4.57.6 in this env. Use
+# this file (not pyproject.toml) when reproducing the paper.
+#
+# Reproduce with:
+#   conda env create -n halo-paper -f environment-frozen.yml
+#   conda activate halo-paper
+#   pip install -e .       # then verify: pytest tests/ -q --ignore=...
+#
+# Notes:
+#  - torch 2.6.0+cu124 is from the official PyTorch CUDA 12.4 build.
+#  - vllm 0.8.5.post1 was used for the W13b/W14/W16/W17/W18 vLLM cells.
+#  - hqq 0.2.8.post1 is the KIVI HF int4 backend (FU_W5/W7e/W8).
+#  - kvpress 0.5.3 is the H2O/SnapKV/StreamingLLM backend (W20).
+#  - flash-attn is NOT required for any reported result (Path D's Triton
+#    kernel re-implements the LSE-merge math from FlashAttention v2).
+name: halo-paper
+channels:
+  - pytorch
+  - nvidia
+  - defaults
+dependencies:
+  - python=3.11.15
+  - pip
+  - pip:
+    - torch==2.6.0
+    - transformers==4.57.6
+    - triton==3.2.0
+    - accelerate==1.13.0
+    - tokenizers==0.22.2
+    - numpy>=2.0,<3
+    - scipy==1.17.1
+    - hqq==0.2.8.post1
+    - kvpress==0.5.3
+    # vllm 0.8.5.post1 only needed for the W13b/W14/W16/W17/W18 vLLM
+    # head-to-head cells; everything else (Path D / Quest / KIVI /
+    # OffloadedCache) runs without vllm.
+    - vllm==0.8.5.post1
+    # remaining deps inherited from pyproject.toml when running `pip install -e .`

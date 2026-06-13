@@ -1,0 +1,146 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+.eggs/
+build/
+dist/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.python-version
+.venv/
+.venv-*/
+venv/
+env/
+
+# --- Notebook checkpoints ---
+.ipynb_checkpoints/
+
+# --- ML artifacts ---
+*.pt
+*.pth
+*.bin
+*.safetensors
+*.npz
+checkpoints/
+wandb/
+runs/
+lightning_logs/
+
+# --- Experiment outputs ---
+experiments/
+logs/
+experiments/runs/
+experiments/cache/
+experiments/figures/raw/
+experiments/*.log
+experiments/*.csv
+experiments/traces/
+experiments/traces_per_head/
+experiments/ruler_data/
+experiments/longbench_raw/
+experiments/infinitebench_raw/
+experiments/classifiers/
+experiments/prompts/
+experiments/figures_synthetic_demo/
+# Ignore loose files under repro_rented/ but allow cell_* subdirectories
+# (preds.jsonl, logs, manifests) to be committed. Note: a trailing-slash
+# pattern on the parent (experiments/repro_rented/) silently kills any
+# downstream negation, so we ignore at the file-name level instead.
+experiments/repro_rented/*
+!experiments/repro_rented/cell_*/
+!experiments/repro_rented/.gitkeep
+traces/
+!experiments/.gitkeep
+
+# --- Third-party clones (recreatable via prepare_ruler_data.sh) ---
+external/
+
+# --- In-progress drafts (excluded from supplementary tarball too) ---
+todo.md
+todo1.md
+todo2.md
+texput.log
+
+# --- Other-paper style extracts (not for distribution) ---
+paper/Paper_style_extract/
+
+# --- Paper build ---
+paper/
+halo_supplement*.tgz
+paper/*.aux
+paper/*.bbl
+paper/*.blg
+paper/*.fdb_latexmk
+paper/*.fls
+paper/*.log
+paper/*.out
+paper/*.synctex.gz
+paper/*.toc
+paper/_minted-*/
+paper/sections/*.aux
+paper/*.pdf
+!paper/figures/*.pdf
+
+# --- In-progress next-paper drafts (not part of this submission) ---
+next_paper/
+
+# --- Claude Code local config (not part of source) ---
+.claude/
+
+# --- IDE / OS ---
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db
+
+# --- Secrets ---
+.env
+.env.*
+!*.env.example
+
+# --- One-shot ModelScope download / launcher tqdm noise ---
+experiments/followups_reviewer_v2/_modelscope_logs/
+
+# --- In-flight cell summaries (none currently in flight) ---
+# A long-running cell may write the bootstrap summary skeleton before
+# all preds.jsonl rows are filled in. Until the watcher confirms n
+# matches args, the summary contains NaN for the in-flight method;
+# don't let those into the supplement. The preds files are kept (they
+# are valid per-prompt observations); only the rolled-up summary is
+# gated until completion. Cell D n=50 finished 2026-05-19 05:07;
+# Cell E Path D n=50 finished 2026-05-19 16:36; both now tracked.
+experiments/followups_reviewer_v2/*/_stage/
+
+# Round-24 run logs (not part of paper artifact)
+experiments/fu_w1c_e2e/_logs/
+experiments/fu_w1c_e2e/streamed_v2/path_d/
+experiments/fu_w1c_e2e/single_launch/path_d/
+experiments/followups_reviewer_v2/_niah_n50_logs/
+experiments/followups_reviewer_v2/_niah_commit_logs/
+experiments/discourse_benchmark/_logs/
+experiments/triton_single_launch_bench/sweep_master.log
+
+# Large intermediate data files — never auto-commit
+experiments/*/seed_*/en_qa/_stage/
+experiments/*/*/seed_*/en_qa/_stage/
+*_stage/en_qa.jsonl
+
+# Internal-only review / cover-letter notes (DO NOT submit)
+paper/COVER_LETTER_NOTES.md
+paper/REVIEW_ROUND*.md
+docs/internal/
+
+# Intermediate dataset stage copies (huge, never commit)
+**/_stage/
+**/_stage/*.jsonl
+
+# Run logs (often contain stack traces with absolute paths -> anonymity leak)
+experiments/**/_logs/

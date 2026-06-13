@@ -1,0 +1,14 @@
+name_or_path: meta-llama/Llama-2-7b-hf
+short_name: llama-2-7b
+context_window: 4096
+attn_implementation: sdpa
+dtype: bfloat16
+device_map: auto
+chat_template: llama-2
+notes: |
+  Cross-family confirmation point for the camera-ready revision.
+  Llama-2-7B is the canonical 7B base model used by the original
+  KIVI, H2O, and StreamingLLM papers; we run a LongBench subset
+  on it to corroborate the §5 main-table findings out of family.
+  Context window is short (4K), so LongBench tasks with prompts
+  longer than 4K are truncated by the runner's standard heuristic.

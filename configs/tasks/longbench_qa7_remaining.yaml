@@ -1,0 +1,13 @@
+suite: longbench-v1
+description: |
+  Remaining 2 tasks from the QA7 subset (musique + gov_report) for the
+  Quest n=200 re-run after the first attempt hit OOD. Used to top up
+  experiments/runs/qwen2-5-7b/longbench/quest_4x_qa7_n200/.
+tasks:
+  - musique
+  - gov_report
+  - 2wikimqa
+metric_spec:
+  2wikimqa: f1
+  musique: f1
+  gov_report: rouge-l

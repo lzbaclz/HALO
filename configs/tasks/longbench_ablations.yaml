@@ -1,0 +1,15 @@
+suite: longbench-ablations
+description: |
+  4 representative LongBench v1 subtasks for ablation studies.
+  Picked to cover (a) single-doc QA (narrativeqa), (b) multi-doc QA (hotpotqa),
+  (c) summarization (gov_report), (d) retrieval (passage_retrieval_en).
+tasks:
+  - narrativeqa
+  - hotpotqa
+  - gov_report
+  - passage_retrieval_en
+metric_spec:
+  narrativeqa: f1
+  hotpotqa: f1
+  gov_report: rouge-l
+  passage_retrieval_en: accuracy

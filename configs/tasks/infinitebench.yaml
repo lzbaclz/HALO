@@ -1,0 +1,14 @@
+suite: infinitebench
+description: |
+  Two $\infty$-Bench subtasks used in the native-hardware verification cells
+  (Cells A--E in sec5_native_hardware.tex). Context length is set to 65K (the
+  native length of $\infty$-Bench En.QA); earlier drafts that tiled to 1M
+  tokens are documented in Limitations.
+tasks:
+  - en_qa
+  - en_mc
+context_length: 65000
+allowed_models:
+  - meta-llama/Llama-3.1-8B-Instruct
+  - Qwen/Qwen2.5-7B
+  - Qwen/Qwen2.5-7B-Instruct

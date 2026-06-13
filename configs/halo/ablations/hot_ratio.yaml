@@ -1,0 +1,10 @@
+# Ablation 5: hot ratio sweep (§2.7) — reveals the sweet spot.
+variants:
+  - name: r05
+    overrides: { hot_ratio: 0.05 }
+  - name: r10
+    overrides: { hot_ratio: 0.10 }
+  - name: r20
+    overrides: { hot_ratio: 0.20 }
+  - name: r30
+    overrides: { hot_ratio: 0.30 }

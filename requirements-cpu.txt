@@ -1,0 +1,69 @@
+# =============================================================================
+# HALO — exact-pin requirements for CPU-only setup.
+#
+# Use this when you want to:
+#   * Run the unit-test suite (46 tests, no GPU)
+#   * Re-render figures from existing traces
+#   * Re-build paper tables from existing manifests
+#   * Exercise the synthetic-trace pipeline
+# All of the above complete in <30 seconds on a 4-core laptop.
+#
+# For the GPU jobs (LongBench / RULER / ∞-Bench / trace collection / 7B
+# identity test), use requirements-cuda.txt instead.
+#
+# Setup:
+#
+#   python -m venv .venv-cpu
+#   source .venv-cpu/bin/activate
+#   pip install -U pip wheel
+#   # 1) torch CPU wheel from the cpu index (NOT pypi):
+#   pip install torch==2.5.1+cpu \
+#       --index-url https://download.pytorch.org/whl/cpu
+#   # 2) the rest:
+#   pip install -r requirements-cpu.txt
+#   # 3) editable install of HALO:
+#   pip install -e .
+#   # 4) verify:
+#   pytest tests/ --ignore=tests/test_integration_identity.py    # → 46 passed
+# =============================================================================
+
+# ML core (without CUDA wheels)
+transformers==5.2.0
+tokenizers==0.22.2
+safetensors==0.7.0
+huggingface_hub==1.14.0
+accelerate==1.13.0
+
+# Datasets / IO
+datasets==4.8.5
+pyarrow==24.0.0
+pandas==2.3.3
+
+# Numerics / stats / plots
+numpy==2.4.4
+scipy==1.17.1
+scikit-learn==1.8.0
+matplotlib==3.10.9
+
+# LongBench fuzzy matching
+fuzzywuzzy==0.18.0
+python-Levenshtein==0.27.3
+RapidFuzz==3.14.5
+rouge==1.0.1
+regex==2026.4.4
+
+# Tests
+pytest==9.0.3
+
+# CLI / misc
+PyYAML==6.0.3
+tqdm==4.67.3
+rich==15.0.0
+beautifulsoup4==4.14.3
+soupsieve==2.8.3
+
+# Note: kvpress, fire, wonderwords, html2text, nltk, tenacity are NOT in this
+# file because their CPU-side use is limited (kvpress only matters for GPU
+# baselines; the others are RULER data prep that has already been completed
+# and shipped under experiments/ruler_data/). If you need them, install via:
+#   pip install kvpress wonderwords html2text nltk tenacity fire beautifulsoup4

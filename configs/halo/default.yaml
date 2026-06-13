@@ -1,0 +1,12 @@
+# Default HALO config used in headline experiments.
+hot_ratio: 0.10
+score_alpha: 1.0
+score_beta: 0.5
+score_gamma: 2.0
+sink_tokens: 4
+refresh_window: 64
+tiers: [gpu, dram]
+block_size: 32
+async_refetch: true
+lookahead: 1
+layerwise_budget: uniform

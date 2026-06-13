@@ -1,0 +1,10 @@
+# Ablation 1: hotness signal — attention-only / position-only / combined (§2.7).
+variants:
+  - name: attn_only
+    overrides: { score_beta: 0.0, score_gamma: 0.0 }
+  - name: position_only
+    overrides: { score_alpha: 0.0, score_gamma: 0.0 }
+  - name: sink_only
+    overrides: { score_alpha: 0.0, score_beta: 0.0 }
+  - name: combined
+    overrides: {}

@@ -1,0 +1,7 @@
+include README.md
+include LICENSE
+include CITATION.cff
+include requirements.txt
+recursive-include configs *.yaml
+recursive-include halo *.py
+recursive-include baselines *.py

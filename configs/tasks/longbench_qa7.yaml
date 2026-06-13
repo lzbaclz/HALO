@@ -1,0 +1,22 @@
+suite: longbench-v1
+description: |
+  7-task QA subset of LongBench-v1 used for the cross-family
+  confirmation (T2.8) and seed-variance (T2.9) cells added in the
+  2026-05-12 revision. Drops the classification / retrieval / code
+  tasks that don't add evidence to the QA-F1 story.
+tasks:
+  - narrativeqa
+  - qasper
+  - multifieldqa_en
+  - hotpotqa
+  - 2wikimqa
+  - musique
+  - gov_report
+metric_spec:
+  narrativeqa: f1
+  qasper: f1
+  multifieldqa_en: f1
+  hotpotqa: f1
+  2wikimqa: f1
+  musique: f1
+  gov_report: rouge-l

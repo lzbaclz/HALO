@@ -1,0 +1,28 @@
+# =============================================================================
+# DEPRECATED alias for the canonical Qwen 2.5-7B base config.
+#
+# The canonical Qwen 2.5-7B base config is configs/models/qwen2-5-7b.yaml
+# (dash slug, paper-aligned, context_window=32768 matching the model's
+# native max_position_embeddings; the headline 65K cells extrapolate
+# past this via RoPE without scaling). This file is kept as an alias so
+# that older scripts referencing the dotted slug continue to work; new
+# scripts should point at qwen2-5-7b.yaml.
+#
+# DO NOT add new fields here. Edit qwen2-5-7b.yaml and they will be
+# picked up via the alias's name_or_path / short_name.
+# =============================================================================
+name_or_path: Qwen/Qwen2.5-7B
+short_name: qwen2-5-7b
+context_window: 32768
+attn_implementation: sdpa
+dtype: bfloat16
+device_map: auto
+chat_template: chatml
+notes: |
+  DEPRECATED alias of qwen2-5-7b.yaml. The dual-slug situation arose
+  from an early commit that wrote the canonical config under the
+  dotted slug with context_window=131072; the dash-slug variant is
+  paper-aligned (32768, RoPE-extrapolate at 65K), so we collapsed
+  back to dash-slug as canonical and rewrote this file to match.
+  Manifest paths under the dotted slug remain readable for older
+  rented-GPU runs that wrote them.

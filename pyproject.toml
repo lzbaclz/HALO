@@ -1,0 +1,118 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "halo-kv"
+version = "0.1.0"
+description = "HALO: Hot-Cold Attention-driven Layered Offloading for long-context LLM inference."
+readme = "README.md"
+license = { file = "LICENSE" }
+requires-python = ">=3.10"
+authors = [
+ { name = "The HALO Authors" }
+]
+keywords = [
+ "llm", "kv-cache", "long-context", "attention", "offloading",
+ "inference", "emnlp", "halo"
+]
+classifiers = [
+ "Development Status :: 3 - Alpha",
+ "Intended Audience :: Science/Research",
+ "License :: OSI Approved :: MIT License",
+ "Programming Language :: Python :: 3.10",
+ "Programming Language :: Python :: 3.11",
+ "Programming Language :: Python :: 3.12",
+ "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+dependencies = [
+ # The submission-day artifact + all reported numbers were produced under
+ # torch 2.6.0+cu124, transformers 4.57.6, triton 3.2.0 (conda env "seer",
+ # Python 3.11.15). The lower-bound pins below match this frozen
+ # configuration; we have validated against transformers 5.x in
+ # development but it is NOT the version used for the paper's tables.
+ # See REPRODUCE.md "Frozen reproducibility environment" for the exact
+ # conda environment file.
+ # torch lower bound loosened from >=2.6 to >=2.4 so that fix_torch.sh can
+ # pin torch 2.4.1 on pods whose NVIDIA driver cannot run torch 2.6+cu124.
+ # torch 2.4 / 2.6 are API-compatible for HALO's usage.
+ "torch>=2.4,<3",
+ "transformers>=4.57,<5",
+ # triton lower bound loosened from >=3.0 to >=2.3 because torch 2.4 pairs
+ # with triton 2.3, while torch 2.6+ uses triton 3.x.
+ "triton>=2.3,<4",
+ "accelerate>=0.30",
+ "numpy>=1.26",
+ "scipy>=1.11",
+ "pyyaml>=6.0",
+ "tqdm>=4.66",
+ "rich>=13.7",
+ "matplotlib>=3.8",
+ "scikit-learn>=1.4",
+]
+
+[project.optional-dependencies]
+eval = [
+ "datasets>=2.20",
+ "evaluate>=0.4",
+ "rouge>=1.0",
+ "rouge-score>=0.1.2",
+ "jieba>=0.42",
+ "fuzzywuzzy>=0.18",
+ "python-Levenshtein>=0.25",
+ "kvpress>=0.5; platform_system != 'Windows'",
+ # `fire` is a transitive of kvpress but kvpress<=0.5.3 pins it to <0.7.
+ # fire 0.6 has no Python 3.13 wheel; fire 0.7.x works at runtime.
+ # If pip refuses the resolve, pre-install with:
+ # pip install --no-deps "fire>=0.7"
+ "fire>=0.6",
+ "beautifulsoup4>=4.12", # InfiniteBench / LongBench raw parsing
+]
+ruler = [
+ # Needed by NVIDIA/RULER's prepare.py for synthetic data generation.
+ # Run `bash scripts/prepare_ruler_data.sh` (or follow STATUS.md §6.4)
+ # after installing these.
+ "wonderwords>=2.2",
+ "html2text>=2025.4",
+ "nltk>=3.9",
+ "tenacity>=9.0",
+ "beautifulsoup4>=4.12",
+]
+dev = [
+ "pytest>=8.0",
+ "pytest-cov>=5.0",
+ "ruff>=0.4",
+ "black>=24.0",
+ "mypy>=1.10",
+ "pre-commit>=3.7",
+]
+
+[project.urls]
+Homepage = "https://github.com/anonymous/halo"
+Issues = "https://github.com/anonymous/halo/issues"
+
+[project.scripts]
+halo-trace = "halo.cli:trace_main"
+halo-eval = "halo.cli:eval_main"
+
+[tool.setuptools.packages.find]
+include = ["halo*", "baselines*"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B", "SIM"]
+ignore = ["E501"]
+
+[tool.black]
+line-length = 100
+target-version = ["py310"]
+
+[tool.pytest.ini_options]
+addopts = "-ra --strict-markers"
+testpaths = ["tests"]
+markers = [
+ "gpu: tests that need a CUDA-capable GPU (skipped on CI / CPU-only machines)",
+]
